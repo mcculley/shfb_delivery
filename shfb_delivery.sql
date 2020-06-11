@@ -1,5 +1,7 @@
 create type language as enum ('english', 'spanish', 'creole', 'portuguese');
 
+create type staff_role as enum ('admin', 'driver');
+
 create table staff_member
 (
     id         serial not null
@@ -107,4 +109,13 @@ create table delivery
             on delete restrict,
     timestamp timestamp not null,
     note      text
+);
+
+create table staff_role_membership
+(
+    staff_member integer    not null
+        constraint staff_role_staff_member_id_fk
+            references staff_member
+            on delete restrict,
+    role         staff_role not null
 );
